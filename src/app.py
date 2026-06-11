@@ -38,6 +38,30 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+    "Beerpong": {
+        "description": "Team-based friendly competition focusing on coordination and strategy",
+        "schedule": "Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 16,
+        "participants": ["jason@mergington.edu"]
+    },
+    "MMA": {
+        "description": "Mixed martial arts practice and conditioning sessions",
+        "schedule": "Tuesdays and Thursdays, 5:00 PM - 6:30 PM",
+        "max_participants": 18,
+        "participants": ["sara@mergington.edu"]
+    },
+    "Visual Board Making": {
+        "description": "Creative sessions to design visual boards and mood collages",
+        "schedule": "Mondays, 4:00 PM - 5:00 PM",
+        "max_participants": 15,
+        "participants": ["lily@mergington.edu"]
+    },
+    "Food Recipes": {
+        "description": "Explore cooking and recipe creation with culinary arts projects",
+        "schedule": "Fridays, 4:00 PM - 5:30 PM",
+        "max_participants": 12,
+        "participants": ["noah@mergington.edu"]
     }
 }
 
@@ -61,6 +85,10 @@ def signup_for_activity(activity_name: str, email: str):
 
     # Get the specific activity
     activity = activities[activity_name]
+
+    # Validate student is not already signed up
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400, detail="Student is already signed up for this activity")
 
     # Add student
     activity["participants"].append(email)
